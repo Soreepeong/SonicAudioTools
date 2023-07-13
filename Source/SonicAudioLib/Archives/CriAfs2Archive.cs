@@ -176,7 +176,12 @@ namespace SonicAudioLib.Archives
             foreach (CriAfs2Entry afs2Entry in orderedEntries)
             {
                 long entryPosition = vldPool.Length;
-                vldPool.Put(afs2Entry.FilePath);
+                if (afs2Entry.FilePath is not null)
+                    vldPool.Put(afs2Entry.FilePath);
+                else if (afs2Entry.Data is not null)
+                    vldPool.Put(afs2Entry.Data);
+                else
+                    throw new InvalidOperationException();
 
                 WriteByLength(positionFieldLength, entryPosition);
             }

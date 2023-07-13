@@ -35,7 +35,9 @@ namespace SonicAudioLib.Archives
             }
         }
 
-        public virtual FileInfo FilePath { get; set; }
+        public virtual FileInfo? FilePath { get; set; }
+        
+        public virtual byte[]? Data { get; set; }
 
         public virtual Stream Open(Stream source)
         {
@@ -44,7 +46,8 @@ namespace SonicAudioLib.Archives
 
         public virtual Stream Open()
         {
-            return FilePath.OpenRead();
+            return (Stream?)FilePath?.OpenRead() ??
+                (Data is null ? throw new InvalidOperationException() : new MemoryStream(Data, false));
         }
     }
 

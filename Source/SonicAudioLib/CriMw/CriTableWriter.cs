@@ -467,7 +467,7 @@ namespace SonicAudioLib.CriMw
         private uint align = 1;
         private bool putBlankString = true;
         private bool leaveOpen = false;
-        private Encoding encodingType = Encoding.GetEncoding("shift-jis");
+        private Encoding encodingType = Encoding.GetEncoding(932);
         private bool removeDuplicateStrings = true;
         private bool enableMask = false;
 
@@ -524,7 +524,7 @@ namespace SonicAudioLib.CriMw
 
             set
             {
-                if (value != Encoding.UTF8 || value != Encoding.GetEncoding("shift-jis"))
+                if (value != Encoding.UTF8 && value != Encoding.GetEncoding("shift-jis"))
                 {
                     return;
                 }
